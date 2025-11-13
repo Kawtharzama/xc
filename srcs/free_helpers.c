@@ -16,17 +16,17 @@ void	free_map(t_data *data)
 {
 	int	y;
 
-	if (!data->gameMap)
+	if (!data->game_map)
 		return ;
 	y = 0;
 	while (y < data->parse.map_height)
 	{
-		if (data->gameMap[y])
-			free(data->gameMap[y]);
+		if (data->game_map[y])
+			free(data->game_map[y]);
 		y++;
 	}
-	free(data->gameMap);
-	data->gameMap = NULL;
+	free(data->game_map);
+	data->game_map = NULL;
 }
 
 void	free_textures(t_data *data)
@@ -48,7 +48,7 @@ void	free_textures_paths_and_map(t_data *data)
 	free_textures(data);
 }
 
-void	free_exit(t_data *data, char *str, bool mlx_ter, bool exit_game)
+void	free_exit(t_data *data, char *str, bool mlx_ter)
 {
 	if (str)
 		printf("%s", str);
@@ -57,6 +57,5 @@ void	free_exit(t_data *data, char *str, bool mlx_ter, bool exit_game)
 		mlx_terminate(data->mlx);
 	}
 	free_textures_paths_and_map(data);
-	error_free(NULL, &data->parse, data->parse.trim, data->parse.map,
-		exit_game);
+	error_free(NULL, &data->parse, data->parse.trim, data->parse.map);
 }

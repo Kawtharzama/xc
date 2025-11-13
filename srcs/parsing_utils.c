@@ -52,7 +52,7 @@ int	check_args(char *s_line, t_parsing *par, char *line, char **split)
 	trim = NULL;
 	split_line = ft_split(s_line, ',');
 	if (!split_line)
-		error_free(s_line, par, line, split, TRUE);
+		error_free(s_line, par, line, split);
 	while (split_line[i])
 	{
 		trim = ft_strtrim(split_line[i], " \a\b\f\n\r\t\v");
@@ -75,11 +75,11 @@ char	*get_substring(char *line, t_parsing *par)
 
 	trim = ft_strtrim(line, " FNOSEAWC\a\b\f\n\r\t\v");
 	if (!trim)
-		error_free(line, par, trim, NULL, TRUE);
+		error_free(line, par, trim, NULL);
 	len = ft_strlen(trim);
 	substr = ft_substr(trim, 0, len);
 	if (!substr)
-		error_free(line, par, trim, NULL, TRUE);
+		error_free(line, par, trim, NULL);
 	free(trim);
 	return (substr);
 }

@@ -21,7 +21,7 @@ void	loop_hook(void *param)
 	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 	{
 		mlx_close_window(data->mlx);
-		free_exit(data, NULL, TRUE, TRUE);
+		free_exit(data, NULL, TRUE);
 	}
 	render_frame(data);
 }
@@ -32,33 +32,29 @@ void	close_program(void *param)
 
 	data = (t_data *)param;
 	mlx_close_window(data->mlx);
-	free_exit(data, NULL, TRUE, TRUE);
+	free_exit(data, NULL, TRUE);
 }
 
 void	load_texture_pixels(t_data *data, mlx_texture_t *temp, int i)
 {
-	unsigned int	x; //too many vars
-	unsigned int	y;
-	int				src_index;
-	uint8_t			r;
-	uint8_t			g;
-	uint8_t			b;
+	t_pixel pixel;
+	memset(&pixel, 0, sizeof(pixel));
 
-	y = 0;
-	while (y < temp->height)
+	pixel.y = 0;
+	while (pixel.y < temp->height)
 	{
-		x = 0;
-		while (x < temp->width)
+		pixel.x = 0;
+		while (pixel.x < temp->width)
 		{
-			src_index = (y * (int)temp->width + x) * 4;
-			r = temp->pixels[src_index];
-			g = temp->pixels[src_index + 1];
-			b = temp->pixels[src_index + 2];
-			data->texture[i][y * data->texture_width[i]
-				+ x] = color_from_rgb((int)r, (int)g, (int)b);
-			x++;
+			pixel.src_index = (pixel.y * (int)temp->width + pixel.x) * 4;
+			pixel.r = temp->pixels[pixel.src_index];
+			pixel.g = temp->pixels[pixel.src_index + 1];
+			pixel.b = temp->pixels[pixel.src_index + 2];
+			data->texture[i][pixel.y * data->texture_width[i]
+				+ pixel.x] = color_from_rgb((int)pixel.r, (int)pixel.g, (int)pixel.b);
+			pixel.x++;
 		}
-		y++;
+		pixel.y++;
 	}
 }
 
@@ -70,7 +66,7 @@ void	load_single_texture(t_data *data, const char *path, int idx)
 
 	temp_texture = mlx_load_png(path);
 	if (!temp_texture)
-		free_exit(data, "Could not load texture file\n", TRUE, TRUE);
+		free_exit(data, "Could not load texture file\n", TRUE);
 	width = temp_texture->width;
 	height = temp_texture->height;
 	data->texture_width[idx] = width;
@@ -79,7 +75,7 @@ void	load_single_texture(t_data *data, const char *path, int idx)
 	if (!data->texture[idx])
 	{
 		mlx_delete_texture(temp_texture);
-		free_exit(data, "Failed to allocate texture memory\n", TRUE, TRUE);
+		free_exit(data, "Failed to allocate texture memory\n", TRUE);
 	}
 	load_texture_pixels(data, temp_texture, idx);
 	mlx_delete_texture(temp_texture);

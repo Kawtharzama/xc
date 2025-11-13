@@ -56,8 +56,7 @@ void	error(char *str)
 	exit(1);
 }
 
-void	error_free(char *str, t_parsing *par, char *trim, char **split,
-		bool exit_game) // 4 vars 
+void	error_free(char *str, t_parsing *par, char *trim, char **split) // 4 vars 
 {
 	if (par->NO_path)
 		free(par->NO_path);
@@ -78,6 +77,5 @@ void	error_free(char *str, t_parsing *par, char *trim, char **split,
 	if (par->trim)
 		free(par->trim);
 	free_gnl(par->fd);
-	if (exit_game == TRUE)
-		exit(1);
+	exit(1);
 }

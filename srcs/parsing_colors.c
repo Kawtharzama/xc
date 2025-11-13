@@ -65,14 +65,14 @@ int	validate_color(char *s_line, t_parsing *par, char *line)
 	trim = NULL;
 	split_line = ft_split(s_line, ',');
 	if (!split_line)
-		error_free(s_line, par, line, NULL, TRUE);
+		error_free(s_line, par, line, NULL);
 	check_commas(s_line, par);
 	check_args(s_line, par, line, split_line);
 	while (split_line[i] && j < 3)
 	{
 		trim = ft_strtrim(split_line[i], " \n\v\r\t");
 		if (!trim)
-			error_free(s_line, par, line, split_line, TRUE);
+			error_free(s_line, par, line, split_line);
 		par->col[j] = check_number(trim, par);
 		free(trim);
 		i++;

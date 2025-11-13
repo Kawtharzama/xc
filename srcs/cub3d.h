@@ -74,38 +74,38 @@ typedef struct s_parsing
 
 typedef struct s_player
 {
-	double			posX;
-	double			posY;
-	double			dirX;
-	double			dirY;
-	double			planeX;
-	double			planeY;
+	double			pos_x;
+	double			pos_y;
+	double			dir_x;
+	double			dir_y;
+	double			plane_x;
+	double			plane_y;
 }					t_player;
 
 typedef struct s_raycast
 {
-	double			cameraPlaneX;
-	double			rayVectorX;
-	double			rayVectorY;
-	int				map_cell_X;
-	int				map_cell_Y;
-	double			sideDistX;
-	double			sideDistY;
-	double			deltaDistX;
-	double			deltaDistY;
-	double			perpWallDist;
-	int				stepX;
-	int				stepY;
+	double			camera_plane_x;
+	double			ray_vector_x;
+	double			ray_vector_y;
+	int				map_cell_x;
+	int				map_cell_y;
+	double			side_dist_x;
+	double			side_dist_y;
+	double			delta_dist_x;
+	double			delta_dist_y;
+	double			perp_wall_dist;
+	int				step_x;
+	int				step_y;
 	int				hit;
 	int				wall_side;
-	int				lineHeight;
+	int				line_height;
 	int				draw_pix_start;
 	int				draw_pix_end;
-	int				texNum;
+	int				tex_num;
 	double			hit_wall;
 	int				texture_col;
 	double			texture_step;
-	double			texture_Pos;
+	double			texture_pos;
 }					t_raycast;
 
 typedef struct s_data
@@ -117,7 +117,7 @@ typedef struct s_data
 	double			curr_time;
 	double			prev_Time;
 	double			frameTime;
-	int				**gameMap;
+	int				**game_map;
 	uint32_t		*texture[NUM_TEXTURES];
 	int				texture_width[NUM_TEXTURES];
 	int				texture_height[NUM_TEXTURES];
@@ -125,11 +125,21 @@ typedef struct s_data
 	t_color			c_color;
 }					t_data;
 
+typedef struct s_pixel
+{
+	unsigned int	x;
+	unsigned int	y;
+	int				src_index;
+	uint8_t			r;
+	uint8_t			g;
+	uint8_t			b;
+}	t_pixel;
+
 /* ---------------------------- Errors and Free ---------------------------- */
 int					error_message(char *str, t_parsing parse);
 void				error(char *str);
 void				error_free(char *str, t_parsing *par, char *trim,
-						char **split, bool exit_game);
+						char **split);
 void				free_split(char **split_line);
 void				free_gnl(int fd);
 
@@ -207,8 +217,7 @@ void				ray_delta_and_sideinit(t_data *data, t_raycast *rc);
 void				ray_dda(t_data *data, t_raycast *rc);
 
 void				free_textures_paths_and_map(t_data *data);
-void				free_exit(t_data *data, char *str, bool mlx_ter,
-						bool exit_game);
+void				free_exit(t_data *data, char *str, bool mlx_ter);
 void				free_map(t_data *data);
 
 void				close_program(void *param);

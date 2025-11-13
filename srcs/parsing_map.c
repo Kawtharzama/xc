@@ -19,12 +19,12 @@ int	copy_map(t_parsing *par, char *line)
 	i = 0;
 	par->cp_map = malloc(sizeof(char *) * (par->map_height + 1));
 	if (!par->cp_map)
-		error_free(line, par, NULL, par->map, TRUE);
+		error_free(line, par, NULL, par->map);
 	while (i < par->map_height)
 	{
 		par->cp_map[i] = ft_strdup(par->map[i]);
 		if (!par->cp_map[i])
-			error_free(line, par, NULL, par->map, TRUE);
+			error_free(line, par, NULL, par->map);
 		i++;
 	}
 	par->cp_map[i] = NULL;

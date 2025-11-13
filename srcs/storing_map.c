@@ -78,7 +78,7 @@ int	store_map(char *line, t_parsing *par)
 	i = 0;
 	new_map = malloc(sizeof(char *) * (par->map_height + 2));
 	if (!new_map)
-		error_free(line, par, NULL, NULL, TRUE);
+		error_free(line, par, NULL, NULL);
 	while (i < par->map_height)
 	{
 		new_map[i] = par->map[i];
@@ -86,7 +86,7 @@ int	store_map(char *line, t_parsing *par)
 	}
 	new_map[i] = ft_strdup(nl_remove(line));
 	if (!new_map[i])
-		error_free(line, par, NULL, new_map, TRUE);
+		error_free(line, par, NULL, new_map);
 	new_map[i + 1] = NULL;
 	if (par->map)
 		free(par->map);

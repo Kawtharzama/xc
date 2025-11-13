@@ -17,40 +17,40 @@ void	ray_pos_dir(t_data *data, t_raycast *rc, int x)
 	t_player	*p;
 
 	p = &data->player;
-	rc->cameraPlaneX = 2 * x;
-	rc->cameraPlaneX /= (double)SCREEN_WIDTH;
-	rc->cameraPlaneX -= 1;
-	rc->rayVectorX = p->dirX + p->planeX * rc->cameraPlaneX;
-	rc->rayVectorY = p->dirY + p->planeY * rc->cameraPlaneX;
-	rc->map_cell_X = (int)p->posX;
-	rc->map_cell_Y = (int)p->posY;
+	rc->camera_plane_x = 2 * x;
+	rc->camera_plane_x /= (double)SCREEN_WIDTH;
+	rc->camera_plane_x -= 1;
+	rc->ray_vector_x = p->dir_x + p->plane_x * rc->camera_plane_x;
+	rc->ray_vector_y = p->dir_y + p->plane_y * rc->camera_plane_x;
+	rc->map_cell_x = (int)p->pos_x;
+	rc->map_cell_y = (int)p->pos_y;
 }
 
 void	ray_init_x_side(t_player *p, t_raycast *rc)
 {
-	if (rc->rayVectorX < 0)
+	if (rc->ray_vector_x < 0)
 	{
-		rc->stepX = -1;
-		rc->sideDistX = (p->posX - rc->map_cell_X) * rc->deltaDistX;
+		rc->step_x = -1;
+		rc->side_dist_x = (p->pos_x - rc->map_cell_x) * rc->delta_dist_x;
 	}
 	else
 	{
-		rc->stepX = 1;
-		rc->sideDistX = (rc->map_cell_X + 1.0 - p->posX) * rc->deltaDistX;
+		rc->step_x = 1;
+		rc->side_dist_x = (rc->map_cell_x + 1.0 - p->pos_x) * rc->delta_dist_x;
 	}
 }
 
 void	ray_init_y_side(t_player *p, t_raycast *rc)
 {
-	if (rc->rayVectorY < 0)
+	if (rc->ray_vector_y < 0)
 	{
-		rc->stepY = -1;
-		rc->sideDistY = (p->posY - rc->map_cell_Y) * rc->deltaDistY;
+		rc->step_y = -1;
+		rc->side_dist_y = (p->pos_y - rc->map_cell_y) * rc->delta_dist_y;
 	}
 	else
 	{
-		rc->stepY = 1;
-		rc->sideDistY = (rc->map_cell_Y + 1.0 - p->posY) * rc->deltaDistY;
+		rc->step_y = 1;
+		rc->side_dist_y = (rc->map_cell_y + 1.0 - p->pos_y) * rc->delta_dist_y;
 	}
 }
 
@@ -59,12 +59,12 @@ void	ray_delta_and_sideinit(t_data *data, t_raycast *rc)
 	t_player	*p;
 
 	p = &data->player;
-	rc->deltaDistX = MAX_DIST;
-	rc->deltaDistY = MAX_DIST;
-	if (rc->rayVectorX != 0)
-		rc->deltaDistX = fabs(1 / rc->rayVectorX);
-	if (rc->rayVectorY != 0)
-		rc->deltaDistY = fabs(1 / rc->rayVectorY);
+	rc->delta_dist_x = MAX_DIST;
+	rc->delta_dist_y = MAX_DIST;
+	if (rc->ray_vector_x != 0)
+		rc->delta_dist_x = fabs(1 / rc->ray_vector_x);
+	if (rc->ray_vector_y != 0)
+		rc->delta_dist_y = fabs(1 / rc->ray_vector_y);
 	rc->hit = 0;
 	ray_init_x_side(p, rc);
 	ray_init_y_side(p, rc);
@@ -74,19 +74,19 @@ void	ray_dda(t_data *data, t_raycast *rc)
 {
 	while (rc->hit == 0)
 	{
-		if (rc->sideDistX < rc->sideDistY)
+		if (rc->side_dist_x < rc->side_dist_y)
 		{
-			rc->sideDistX += rc->deltaDistX;
-			rc->map_cell_X += rc->stepX;
+			rc->side_dist_x += rc->delta_dist_x;
+			rc->map_cell_x += rc->step_x;
 			rc->wall_side = 0;
 		}
 		else
 		{
-			rc->sideDistY += rc->deltaDistY;
-			rc->map_cell_Y += rc->stepY;
+			rc->side_dist_y += rc->delta_dist_y;
+			rc->map_cell_y += rc->step_y;
 			rc->wall_side = 1;
 		}
-		if (data->gameMap[rc->map_cell_Y][rc->map_cell_X] > 0)
+		if (data->game_map[rc->map_cell_y][rc->map_cell_x] > 0)
 			rc->hit = 1;
 	}
 }

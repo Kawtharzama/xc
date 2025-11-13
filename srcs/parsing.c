@@ -21,7 +21,7 @@ char	*get_id(char *line, t_parsing *par)
 		return (0);
 	trim_line = ft_strtrim(line, " \a\b\f\n\r\t\v");
 	if (!trim_line)
-		error_free(line, par, NULL, NULL, TRUE);
+		error_free(line, par, NULL, NULL);
 	i = 0;
 	while (trim_line[i])
 	{
@@ -31,7 +31,7 @@ char	*get_id(char *line, t_parsing *par)
 	}
 	par->id = ft_substr(trim_line, 0, i);
 	if (!par->id)
-		error_free(line, par, trim_line, NULL, TRUE);
+		error_free(line, par, trim_line, NULL);
 	free(trim_line);
 	return (0);
 }

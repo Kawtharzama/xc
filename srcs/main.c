@@ -24,46 +24,48 @@ void	init_data(t_data *data)
 	init_map_n_player(data);
 }
 
-int	main(int argc, char **argv)
+void	setup_and_parse(t_data *data, int argc, char **argv)
 {
-	t_data	data;
-
-	ft_memset(&data, 0, sizeof(data));
+	ft_memset(data, 0, sizeof(t_data));
 	if (argc == 1)
 		error("No map file\n");
 	if (argc != 2)
 		error("Too many arguments\n");
-	parsing(argv, &data.parse);
-	if (!data.parse.valid)
-	{
-		free_textures_paths_and_map(&data); // check this
-		return (0);
-	}
-	init_data(&data);
-	data.mlx = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "cub3D", false);
-	if (!data.mlx)
-	{
-		free_exit(&data, "can't initiate mlx\n", FALSE, TRUE);
-		// free_textures_paths_and_map(&data);
-		// error_free(NULL, &data.parse, data.parse.trim, data.parse.map, 1);
-	} // check error
-	data.img = mlx_new_image(data.mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-	if (!data.img)
-	{
-		free_exit(&data, "Image allocation failed\n", TRUE, TRUE);
-		// free_textures_paths_and_map(&data);
-		// error_free(NULL, &data.parse, data.parse.trim, data.parse.map, 0);
-		// mlx_terminate(data.mlx);
-		// error("Image allocation failed\n");
-	} // check erroe
-	load_textures_from_files(&data);
-	mlx_image_to_window(data.mlx, data.img, 0, 0);
-	mlx_close_hook(data.mlx, close_program, &data);
-	mlx_loop_hook(data.mlx, loop_hook, &data);
-	mlx_loop(data.mlx);
-	mlx_delete_image(data.mlx, data.img);
-	mlx_terminate(data.mlx);
-	error_free(NULL, &data.parse, data.parse.trim, data.parse.map, FALSE);
-	//    printf("end of program\n");
+	parsing(argv, &data->parse);
+	if (!data->parse.valid)
+		free_textures_paths_and_map(data);
+	init_data(data);
+}
+
+ void	init_and_run_mlx(t_data *data)
+{
+	data->mlx = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "cub3D", false);
+	if (!data->mlx)
+		free_exit(data, "can't initiate mlx\n", FALSE);
+
+	data->img = mlx_new_image(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+	if (!data->img)
+		free_exit(data, "Image allocation failed\n", TRUE);
+
+	load_textures_from_files(data);
+	if (mlx_image_to_window(data->mlx, data->img, 0, 0) < 0)
+		free_exit(data, "Image allocation failed\n", TRUE);
+
+	mlx_close_hook(data->mlx, close_program, data);
+	mlx_loop_hook(data->mlx, loop_hook, data);
+	mlx_loop(data->mlx);
+
+	mlx_delete_image(data->mlx, data->img);
+	mlx_terminate(data->mlx);
+	error_free(NULL, &data->parse, data->parse.trim, data->parse.map);
+}
+
+int	main(int argc, char **argv)
+{
+	t_data	data;
+
+	setup_and_parse(&data, argc, argv);
+	init_and_run_mlx(&data);
 	return (0);
 }
+
