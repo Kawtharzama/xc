@@ -59,9 +59,11 @@ void	ray_compute_hit_and_texcol(t_data *data, t_raycast *rc)
 	rc->hit_wall = tmp - floor(tmp);
 	rc->texture_col = (int)(rc->hit_wall * data->texture_width[rc->tex_num]);
 	if (rc->wall_side == 0 && rc->ray_vector_x <= 0)
-		rc->texture_col = data->texture_width[rc->tex_num] - rc->texture_col - 1;
+		rc->texture_col = data->texture_width[rc->tex_num] - rc->texture_col
+			- 1;
 	if (rc->wall_side == 1 && rc->ray_vector_y >= 0)
-		rc->texture_col = data->texture_width[rc->tex_num] - rc->texture_col - 1;
+		rc->texture_col = data->texture_width[rc->tex_num] - rc->texture_col
+			- 1;
 }
 
 void	ray_finalize(t_data *data, t_raycast *rc)

@@ -56,16 +56,17 @@ void	error(char *str)
 	exit(1);
 }
 
-void	error_free(char *str, t_parsing *par, char *trim, char **split) // 4 vars 
+void	error_free(char *str, t_parsing *par, char *trim, char **split)
+		// 4 vars
 {
-	if (par->NO_path)
-		free(par->NO_path);
-	if (par->WE_path)
-		free(par->WE_path);
-	if (par->EA_path)
-		free(par->EA_path);
-	if (par->SO_path)
-		free(par->SO_path);
+	if (par->no_path)
+		free(par->no_path);
+	if (par->we_path)
+		free(par->we_path);
+	if (par->ea_path)
+		free(par->ea_path);
+	if (par->so_path)
+		free(par->so_path);
 	if (str)
 		free(str);
 	if (par->id)

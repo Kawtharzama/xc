@@ -60,10 +60,10 @@ typedef struct s_parsing
 	char			**map;
 	char			**cp_map;
 	char			**split_line;
-	char			*NO_path;
-	char			*SO_path;
-	char			*WE_path;
-	char			*EA_path;
+	char			*no_path;
+	char			*so_path;
+	char			*we_path;
+	char			*ea_path;
 	char			*args;
 	char			*trim;
 	char			*subline;
@@ -115,8 +115,8 @@ typedef struct s_data
 	mlx_image_t		*img;
 	t_player		player;
 	double			curr_time;
-	double			prev_Time;
-	double			frameTime;
+	double			prev_time;
+	double			frametime;
 	int				**game_map;
 	uint32_t		*texture[NUM_TEXTURES];
 	int				texture_width[NUM_TEXTURES];
@@ -133,7 +133,7 @@ typedef struct s_pixel
 	uint8_t			r;
 	uint8_t			g;
 	uint8_t			b;
-}	t_pixel;
+}					t_pixel;
 
 /* ---------------------------- Errors and Free ---------------------------- */
 int					error_message(char *str, t_parsing parse);
@@ -221,4 +221,16 @@ void				free_exit(t_data *data, char *str, bool mlx_ter);
 void				free_map(t_data *data);
 
 void				close_program(void *param);
+void				update_time_and_speeds(t_data *data, double *moveSpeed,
+						double *rotSpeed);
+
+void				move_forward_backward(t_data *data, t_player *p,
+						double moveSpeed, double check_dist);
+void				move_strafe(t_data *data, t_player *p, double moveSpeed,
+						double check_dist);
+void				rotate_right(t_player *p, double rotSpeed);
+void				rotate_left(t_player *p, double rotSpeed);
+
+void				handle_movement(t_data *data);
+
 #endif

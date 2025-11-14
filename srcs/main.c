@@ -19,8 +19,8 @@ void	init_data(t_data *data)
 	data->c_color = color_from_rgb(data->parse.c_col[0], data->parse.c_col[1],
 			data->parse.c_col[2]);
 	data->curr_time = 0.0;
-	data->prev_Time = 0.0;
-	data->frameTime = 0.0;
+	data->prev_time = 0.0;
+	data->frametime = 0.0;
 	init_map_n_player(data);
 }
 
@@ -37,24 +37,20 @@ void	setup_and_parse(t_data *data, int argc, char **argv)
 	init_data(data);
 }
 
- void	init_and_run_mlx(t_data *data)
+void	init_and_run_mlx(t_data *data)
 {
 	data->mlx = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "cub3D", false);
 	if (!data->mlx)
 		free_exit(data, "can't initiate mlx\n", FALSE);
-
 	data->img = mlx_new_image(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	if (!data->img)
 		free_exit(data, "Image allocation failed\n", TRUE);
-
 	load_textures_from_files(data);
 	if (mlx_image_to_window(data->mlx, data->img, 0, 0) < 0)
 		free_exit(data, "Image allocation failed\n", TRUE);
-
 	mlx_close_hook(data->mlx, close_program, data);
 	mlx_loop_hook(data->mlx, loop_hook, data);
 	mlx_loop(data->mlx);
-
 	mlx_delete_image(data->mlx, data->img);
 	mlx_terminate(data->mlx);
 	error_free(NULL, &data->parse, data->parse.trim, data->parse.map);
@@ -68,4 +64,3 @@ int	main(int argc, char **argv)
 	init_and_run_mlx(&data);
 	return (0);
 }
-

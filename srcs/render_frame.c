@@ -36,23 +36,24 @@ void	clear_background(t_data *data)
 void	draw_texture_column(t_data *data, t_raycast *rc, int x)
 {
 	int		y;
-	int		texY;
+	int		tex_y;
 	t_color	color;
 
-	rc->texture_step = 1.0 * data->texture_height[rc->tex_num] / rc->line_height;
+	rc->texture_step = 1.0 * data->texture_height[rc->tex_num]
+		/ rc->line_height;
 	rc->texture_pos = (rc->draw_pix_start - SCREEN_HEIGHT / 2 + rc->line_height
 			/ 2) * rc->texture_step;
 	y = rc->draw_pix_start;
 	while (y <= rc->draw_pix_end)
 	{
-		texY = (int)rc->texture_pos;
+		tex_y = (int)rc->texture_pos;
 		rc->texture_pos += rc->texture_step;
-		if (texY < 0)
-			texY = 0;
-		if (texY >= data->texture_height[rc->tex_num])
-			texY = data->texture_height[rc->tex_num] - 1;
-		color = data->texture[rc->tex_num][data->texture_width[rc->tex_num] * texY
-			+ rc->texture_col];
+		if (tex_y < 0)
+			tex_y = 0;
+		if (tex_y >= data->texture_height[rc->tex_num])
+			tex_y = data->texture_height[rc->tex_num] - 1;
+		color = data->texture[rc->tex_num][data->texture_width[rc->tex_num]
+			* tex_y + rc->texture_col];
 		if (rc->wall_side == 1)
 			color = shade_color_comp(color, 1.2);
 		mlx_put_pixel(data->img, x, y, color);

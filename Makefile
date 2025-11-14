@@ -29,6 +29,8 @@ SRCS = 	main.c\
 		load_texture.c\
 		player.c\
 		player_movements.c\
+		player_movements2nd.c\
+
 
 SRC  = $(addprefix $(SRCDIR)/, $(SRCS))
 

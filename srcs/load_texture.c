@@ -37,9 +37,9 @@ void	close_program(void *param)
 
 void	load_texture_pixels(t_data *data, mlx_texture_t *temp, int i)
 {
-	t_pixel pixel;
-	memset(&pixel, 0, sizeof(pixel));
+	t_pixel	pixel;
 
+	memset(&pixel, 0, sizeof(pixel));
 	pixel.y = 0;
 	while (pixel.y < temp->height)
 	{
@@ -51,7 +51,8 @@ void	load_texture_pixels(t_data *data, mlx_texture_t *temp, int i)
 			pixel.g = temp->pixels[pixel.src_index + 1];
 			pixel.b = temp->pixels[pixel.src_index + 2];
 			data->texture[i][pixel.y * data->texture_width[i]
-				+ pixel.x] = color_from_rgb((int)pixel.r, (int)pixel.g, (int)pixel.b);
+				+ pixel.x] = color_from_rgb((int)pixel.r, (int)pixel.g,
+					(int)pixel.b);
 			pixel.x++;
 		}
 		pixel.y++;
@@ -86,10 +87,10 @@ void	load_textures_from_files(t_data *data)
 	const char	*paths[NUM_TEXTURES];
 	int			i;
 
-	paths[0] = data->parse.NO_path;
-	paths[1] = data->parse.SO_path;
-	paths[2] = data->parse.EA_path;
-	paths[3] = data->parse.WE_path;
+	paths[0] = data->parse.no_path;
+	paths[1] = data->parse.so_path;
+	paths[2] = data->parse.ea_path;
+	paths[3] = data->parse.we_path;
 	i = 0;
 	while (i < NUM_TEXTURES)
 	{

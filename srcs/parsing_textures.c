@@ -66,26 +66,26 @@ void	store_textures(char *line, t_parsing *par)
 {
 	if (ft_strcmp(par->id, "NO") == 0)
 	{
-		par->NO_path = ft_strdup(par->subline);
-		if (!par->NO_path)
+		par->no_path = ft_strdup(par->subline);
+		if (!par->no_path)
 			error_free(line, par, par->subline, NULL);
 	}
 	else if (ft_strcmp(par->id, "SO") == 0)
 	{
-		par->SO_path = ft_strdup(par->subline);
-		if (!par->SO_path)
+		par->so_path = ft_strdup(par->subline);
+		if (!par->so_path)
 			error_free(line, par, par->subline, NULL);
 	}
 	else if (ft_strcmp(par->id, "EA") == 0)
 	{
-		par->EA_path = ft_strdup(par->subline);
-		if (!par->EA_path)
+		par->ea_path = ft_strdup(par->subline);
+		if (!par->ea_path)
 			error_free(line, par, par->subline, NULL);
 	}
 	else if (ft_strcmp(par->id, "WE") == 0)
 	{
-		par->WE_path = ft_strdup(par->subline);
-		if (!par->WE_path)
+		par->we_path = ft_strdup(par->subline);
+		if (!par->we_path)
 			error_free(line, par, par->subline, NULL);
 	}
 }
