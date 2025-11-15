@@ -91,4 +91,3 @@ char	*get_next_line(int fd)
 	}
 	return (get_data(&line));
 }
-
