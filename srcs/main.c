@@ -33,7 +33,8 @@ void	setup_and_parse(t_data *data, int argc, char **argv)
 		error("Too many arguments\n");
 	parsing(argv, &data->parse);
 	if (!data->parse.valid)
-		free_textures_paths_and_map(data);
+		free_exit(data, "Error\n", FALSE);
+
 	init_data(data);
 }
 
@@ -63,7 +64,6 @@ void	setup_and_parse(t_data *data, int argc, char **argv)
 int	main(int argc, char **argv)
 {
 	t_data	data;
-
 	setup_and_parse(&data, argc, argv);
 	init_and_run_mlx(&data);
 	return (0);

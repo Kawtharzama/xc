@@ -56,7 +56,7 @@ void	error(char *str)
 	exit(1);
 }
 
-void	error_free(char *str, t_parsing *par, char *trim, char **split) // 4 vars 
+void	error_free(char *str, t_parsing *par, char *trim, char **split)
 {
 	if (par->NO_path)
 		free(par->NO_path);

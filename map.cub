@@ -1,7 +1,7 @@
 NO ./textures/brick.png
 SO ./textures/metal.png
 WE ./textures/stone.png
-EA ./textures/wood.png
+EA ./textures/w ood.png
 
 F 220,220,220
 C 0,0,0
